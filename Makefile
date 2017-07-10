@@ -1,10 +1,11 @@
 NAME := learn-go
 
 $(NAME): dependencies
-	go build
+	godep go build
 
 .PHONY: dependencies
 dependencies:
+	go get -u github.com/tools/godep
 	go get -u github.com/golang/lint/golint
 
 .PHONY: run
@@ -13,7 +14,7 @@ run: $(NAME)
 
 .PHONY: test
 test: $(NAME)
-	go test
+	godep go test
 
 .PHONY: style
 style: $(NAME)

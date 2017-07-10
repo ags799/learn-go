@@ -1,0 +1,6 @@
+{
+	"ImportPath": "github.com/ags799/learn-go",
+	"GoVersion": "go1.8",
+	"GodepVersion": "v79",
+	"Deps": []
+}
