@@ -1,7 +1,11 @@
 NAME := learn-go
 
-$(NAME):
+$(NAME): dependencies
 	go build
+
+.PHONY: dependencies
+dependencies:
+	go get -u github.com/golang/lint/golint
 
 .PHONY: run
 run: $(NAME)
