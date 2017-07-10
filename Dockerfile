@@ -1,4 +1,4 @@
-FROM golang:onbuild
+FROM golang:1.8.3
 
 ADD . /go/src/github.com/ags799/learn-go
 
