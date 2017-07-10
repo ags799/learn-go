@@ -11,3 +11,11 @@ Build with
 Run with
 
     make run
+
+Test with
+
+    make test
+
+Check style with
+
+    make style

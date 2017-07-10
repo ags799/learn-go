@@ -10,3 +10,7 @@ run: $(NAME)
 .PHONY: test
 test: $(NAME)
 	go test
+
+.PHONY: style
+style: $(NAME)
+	golint -set_exit_status

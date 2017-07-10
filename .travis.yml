@@ -4,4 +4,4 @@ go:
   - 1.8.x
 
 script:
-  make test
+  make test style
