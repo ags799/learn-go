@@ -1,4 +1,5 @@
 NAME := learn-go
+VERSION := $(shell git describe --tags --always --dirty='-dev')
 
 $(NAME): dependencies
 	go build
@@ -19,3 +20,9 @@ test: $(NAME)
 .PHONY: style
 style: $(NAME)
 	golint -set_exit_status
+
+docker: dependencies
+	docker build -t $(NAME):$(VERSION) .
+
+docker-run: docker
+	docker run --rm --publish 8080:8080 $(NAME):$(VERSION)
