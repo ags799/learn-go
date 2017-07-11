@@ -1,7 +1,16 @@
+sudo: required
+
+services:
+  - docker
+
 language: go
 
 go:
-  - 1.8.x
+  - 1.8.3
 
 script:
-  make test style
+  - make test style
+  - make docker
+  - make docker-run &
+  - sleep 5
+  - make integration-test

@@ -25,4 +25,10 @@ docker: dependencies
 	docker build -t $(NAME):$(VERSION) .
 
 docker-run: docker
-	docker run --rm --publish 8080:8080 $(NAME):$(VERSION)
+	docker run --rm --publish 8080:8080 --name $(NAME)-test $(NAME):$(VERSION)
+
+docker-stop:
+	docker stop $(NAME)-test
+
+integration-test: dependencies
+	go test -integration
