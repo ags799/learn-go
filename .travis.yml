@@ -8,8 +8,8 @@ language: go
 go:
   - 1.8.3
 
-before_install:
-  - make docker-run
-
 script:
-  make test style integration-test
+  make test style
+  make docker-run &
+  sleep 5
+  make integration-test
