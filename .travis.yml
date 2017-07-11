@@ -9,7 +9,7 @@ go:
   - 1.8.3
 
 script:
-  make test style
-  make docker-run &
-  sleep 5
-  make integration-test
+  - make test style
+  - make docker-run &
+  - sleep 5
+  - make integration-test
