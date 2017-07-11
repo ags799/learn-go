@@ -14,7 +14,9 @@ type Item struct {
 }
 
 func list(c *gin.Context) {
-	c.JSON(200, Item{Description: "some description"})
+	var items []Item
+	items = append(items, Item{Description: "some description"}, Item{Description: "another description"})
+	c.JSON(200, items)
 }
 
 func ping(c *gin.Context) {
