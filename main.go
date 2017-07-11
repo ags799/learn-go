@@ -9,5 +9,5 @@ func main() {
 }
 
 func ping(c *gin.Context) {
-	c.JSON(200, "pong")
+	c.String(200, "pong")
 }
