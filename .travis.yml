@@ -10,6 +10,7 @@ go:
 
 script:
   - make test style
+  - make docker
   - make docker-run &
   - sleep 5
   - make integration-test
