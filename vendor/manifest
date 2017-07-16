@@ -60,6 +60,14 @@
 			"notests": true
 		},
 		{
+			"importpath": "github.com/lib/pq",
+			"repository": "https://github.com/lib/pq",
+			"vcs": "git",
+			"revision": "dd1fe2071026ce53f36a39112e645b4d4f5793a4",
+			"branch": "master",
+			"notests": true
+		},
+		{
 			"importpath": "github.com/manucorporat/stats",
 			"repository": "https://github.com/manucorporat/stats",
 			"vcs": "git",
