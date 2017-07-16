@@ -1,28 +1,17 @@
 package main
 
 import (
-	"database/sql"
 	"github.com/gin-gonic/gin"
-	_ "github.com/lib/pq"
+	"fmt"
 )
 
 func main() {
-	db, err := sql.Open("postgres", "user=postgres sslmode=disable")
+	_, err := Postgres()
 	if err != nil {
-		print("Open: " + err.Error())
+		fmt.Println(err)
 		return
 	}
-	err = db.Ping()
-	if err != nil {
-		print("Ping: " + err.Error())
-		return
-	}
-	err = db.Close()
-	if err != nil {
-		print("Close: " + err.Error())
-		return
-	}
-	print("success")
+	println("success")
 	/*r := gin.Default()
 	r.GET("/item", list)
 	r.GET("/ping", ping)
