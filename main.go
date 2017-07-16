@@ -11,7 +11,22 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	items := db.List()
+	defer db.Close()
+	err = db.Add(Item{1, "walk dog"})
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	err = db.Remove(1)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	items, err := db.List()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 	fmt.Println(items)
 	/*r := gin.Default()
 	r.GET("/item", List)
@@ -21,7 +36,7 @@ func main() {
 
 func list(c *gin.Context) {
 	var items []Item
-	items = append(items, Item{Description: "some description"}, Item{Description: "another description"})
+	items = append(items, Item{Id: 0, Description: "some description"}, Item{Id: 1, Description: "another description"})
 	c.JSON(200, items)
 }
 
