@@ -24,7 +24,8 @@ type PostgresDb struct {
 }
 
 func NewPostgresDb() (Db, error) {
-	db, err := sql.Open("postgres", "user=postgres sslmode=disable")
+	//db, err := sql.Open("postgres", "host=db.learn-go.dev user=postgres sslmode=disable")
+	db, err := sql.Open("postgres", "postgres://postgres@db.learn-go.dev/postgres?sslmode=disable")
 	if err != nil {
 		return nil, fmt.Errorf("Open error: %s", err)
 	}

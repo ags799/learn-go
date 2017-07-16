@@ -4,6 +4,10 @@ VERSION := $(shell git describe --tags --always --dirty='-dev')
 $(NAME): dependencies
 	go build
 
+.PHONY: clean
+clean:
+	(test -f $(NAME) && rm $(NAME)) || true
+
 .PHONY: dependencies
 dependencies:
 	go get -u github.com/FiloSottile/gvt
@@ -21,14 +25,18 @@ test: $(NAME)
 style: $(NAME)
 	golint -set_exit_status
 
+.PHONY: docker
 docker: dependencies
 	docker build -t $(NAME):$(VERSION) .
 
+.PHONY: docker-run
 docker-run: docker
-	docker run --rm --publish 8080:8080 --name $(NAME)-test $(NAME):$(VERSION)
+	docker-compose up
 
+.PHONY: docker-stop
 docker-stop:
-	docker stop $(NAME)-test
+	docker-compose stop
 
+.PHONY: integration-test
 integration-test: dependencies
 	go test -integration

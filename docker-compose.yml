@@ -1,6 +1,12 @@
 version: '3'
 services:
+  learn-go:
+    build: .
+    ports:
+      - "8080:8080"
   db:
     image: postgres:9.6.3
+    domainname: learn-go.dev
+    hostname: db
     ports:
       - "5432:5432"

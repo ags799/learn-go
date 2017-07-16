@@ -20,7 +20,7 @@ Check style with
 
     make style
 
-Integration test by first starting the Docker container
+Integration test by first starting the Docker containers
 
     make docker-run
 
@@ -28,7 +28,7 @@ then running integration tests
 
     make integration-test
 
-then stopping the Docker container
+then stopping the Docker containers
 
     make docker-stop
 
