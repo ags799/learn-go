@@ -4,12 +4,13 @@ import (
 	"database/sql"
 	"fmt"
 	_ "github.com/lib/pq"
+	"github.com/satori/go.uuid"
 )
 
 type Db interface {
 	List() ([]Item, error)
 	Add(Item) error
-	Remove(int) error
+	Remove(uuid.UUID) error
 	Close() error
 }
 
@@ -38,7 +39,7 @@ func (db PostgresDb) List() ([]Item, error) {
 	var items []Item
 	for rows.Next() {
 		var (
-			id int
+			id uuid.UUID
 			description string
 		)
 		err := rows.Scan(&id, &description)
@@ -58,7 +59,7 @@ func (db PostgresDb) Add(item Item) error {
 	return nil
 }
 
-func (db PostgresDb) Remove(id int) error {
+func (db PostgresDb) Remove(id uuid.UUID) error {
 	_, err := db.db.Query("delete from tasks where id = $1", id)
 	if err != nil {
 		return fmt.Errorf("Error deleting item: %s", err)

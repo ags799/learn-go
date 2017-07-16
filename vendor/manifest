@@ -84,6 +84,14 @@
 			"notests": true
 		},
 		{
+			"importpath": "github.com/satori/go.uuid",
+			"repository": "https://github.com/satori/go.uuid",
+			"vcs": "git",
+			"revision": "5bf94b69c6b68ee1b541973bb8e1144db23a194b",
+			"branch": "master",
+			"notests": true
+		},
+		{
 			"importpath": "github.com/stretchr/testify/assert",
 			"repository": "https://github.com/stretchr/testify",
 			"vcs": "git",

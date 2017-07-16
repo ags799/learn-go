@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"fmt"
+	"github.com/satori/go.uuid"
 )
 
 func main() {
@@ -12,12 +13,13 @@ func main() {
 		return
 	}
 	defer db.Close()
-	err = db.Add(Item{1, "walk dog"})
+	id := uuid.NewV4()
+	err = db.Add(Item{id, "walk dog"})
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	err = db.Remove(1)
+	err = db.Remove(id)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -36,7 +38,7 @@ func main() {
 
 func list(c *gin.Context) {
 	var items []Item
-	items = append(items, Item{Id: 0, Description: "some description"}, Item{Id: 1, Description: "another description"})
+	//items = append(items, Item{Id: 0, Description: "some description"}, Item{Id: 1, Description: "another description"})
 	c.JSON(200, items)
 }
 
