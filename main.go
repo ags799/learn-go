@@ -6,20 +6,17 @@ import (
 )
 
 func main() {
-	_, err := Postgres()
+	db, err := NewPostgresDb()
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	println("success")
+	items := db.List()
+	fmt.Println(items)
 	/*r := gin.Default()
-	r.GET("/item", list)
+	r.GET("/item", List)
 	r.GET("/ping", ping)
 	r.Run()*/
-}
-
-type Item struct {
-	Description string `json:"description"`
 }
 
 func list(c *gin.Context) {
