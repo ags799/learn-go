@@ -14,8 +14,13 @@ type Db interface {
 	Close() error
 }
 
+const tableName = "tasks"
+
 type PostgresDb struct {
 	db *sql.DB
+	list *sql.Stmt
+	add *sql.Stmt
+	remove *sql.Stmt
 }
 
 func NewPostgresDb() (Db, error) {
@@ -27,13 +32,25 @@ func NewPostgresDb() (Db, error) {
 	if err != nil {
 		return nil, fmt.Errorf("Ping error: %s", err)
 	}
-	return PostgresDb{db}, nil
+	list, err := db.Prepare(fmt.Sprintf("select * from %s", tableName))
+	if err != nil {
+		return nil, fmt.Errorf("List statement preparation error: %s", err)
+	}
+	add, err := db.Prepare(fmt.Sprintf("insert into %s values ($1, $2)", tableName))
+	if err != nil {
+		return nil, fmt.Errorf("Add statement preparation error: %s", err)
+	}
+	remove, err := db.Prepare(fmt.Sprintf("delete from %s where id = $1", tableName))
+	if err != nil {
+		return nil, fmt.Errorf("Remove statement preparation error: %s", err)
+	}
+	return PostgresDb{db, list, add, remove}, nil
 }
 
 func (db PostgresDb) List() ([]Item, error) {
-	rows, err := db.db.Query("select * from tasks")
+	rows, err := db.list.Query()
 	if err != nil {
-		return nil, fmt.Errorf("Error retrieving tasks from Postgres database: %s", err)
+		return nil, fmt.Errorf(fmt.Sprintf("Error retrieving %s from Postgres database: %s", tableName), err)
 	}
 	defer rows.Close()
 	var items []Item
@@ -52,7 +69,7 @@ func (db PostgresDb) List() ([]Item, error) {
 }
 
 func (db PostgresDb) Add(item Item) error {
-	_, err := db.db.Query("insert into tasks values ($1, $2)", item.Id, item.Description)
+	_, err := db.add.Query(item.Id, item.Description)
 	if err != nil {
 		return fmt.Errorf("Error inserting item: %s", err)
 	}
@@ -60,7 +77,7 @@ func (db PostgresDb) Add(item Item) error {
 }
 
 func (db PostgresDb) Remove(id uuid.UUID) error {
-	_, err := db.db.Query("delete from tasks where id = $1", id)
+	_, err := db.remove.Query(id)
 	if err != nil {
 		return fmt.Errorf("Error deleting item: %s", err)
 	}
