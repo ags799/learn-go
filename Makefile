@@ -1,15 +1,18 @@
 NAME := learn-go
 VERSION := $(shell git describe --tags --always --dirty='-dev')
 
-$(NAME): dependencies
+.PHONY: all
+all: test lint
+
+$(NAME):
 	go build
 
 .PHONY: clean
 clean:
 	(test -f $(NAME) && rm $(NAME)) || true
 
-.PHONY: dependencies
-dependencies:
+.PHONY: devtools
+devtools:
 	go get -u github.com/FiloSottile/gvt
 	go get -u github.com/golang/lint/golint
 
@@ -21,12 +24,12 @@ run: $(NAME)
 test: $(NAME)
 	go test
 
-.PHONY: style
-style: $(NAME)
+.PHONY: lint
+lint: $(NAME)
 	golint -set_exit_status
 
 .PHONY: docker
-docker: dependencies
+docker:
 	docker build -t $(NAME):$(VERSION) -t $(NAME):latest .
 
 .PHONY: docker-run
@@ -38,5 +41,5 @@ docker-stop:
 	docker-compose stop
 
 .PHONY: integration-test
-integration-test: dependencies
+integration-test:
 	go test -integration
