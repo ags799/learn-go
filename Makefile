@@ -27,7 +27,7 @@ style: $(NAME)
 
 .PHONY: docker
 docker: dependencies
-	docker build -t $(NAME):$(VERSION) .
+	docker build -t $(NAME):$(VERSION) -t $(NAME):latest .
 
 .PHONY: docker-run
 docker-run: docker
