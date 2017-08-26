@@ -7,14 +7,14 @@ import (
 )
 
 func main() {
-	db, err := NewPostgresDb()
+	db, err := newPostgresDb()
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	defer db.Close()
 	id := uuid.NewV4()
-	err = db.Add(Item{id, "walk dog"})
+	err = db.Add(item{id, "walk dog"})
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -24,5 +24,5 @@ func main() {
 		fmt.Println(err)
 		return
 	}*/
-	NewGinServer(db).Run()
+	newGinServer(db).Run()
 }

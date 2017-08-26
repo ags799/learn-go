@@ -6,28 +6,28 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Server interface {
+type server interface {
 	Run() error
 }
 
-type GinServer struct {
+type ginServer struct {
 	engine *gin.Engine
-	db     Db
+	db     db
 }
 
-func NewGinServer(db Db) GinServer {
+func newGinServer(db db) ginServer {
 	engine := gin.Default()
-	server := GinServer{engine, db}
+	server := ginServer{engine, db}
 	engine.GET("/item", server.List)
 	engine.GET("/ping", server.Ping)
 	return server
 }
 
-func (server GinServer) Run() error {
+func (server ginServer) Run() error {
 	return server.engine.Run()
 }
 
-func (server GinServer) List(c *gin.Context) {
+func (server ginServer) List(c *gin.Context) {
 	items, err := server.db.List()
 	if err != nil {
 		fmt.Println(err)
@@ -36,6 +36,6 @@ func (server GinServer) List(c *gin.Context) {
 	c.JSON(200, items)
 }
 
-func (server GinServer) Ping(c *gin.Context) {
+func (server ginServer) Ping(c *gin.Context) {
 	c.String(200, "pong")
 }

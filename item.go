@@ -2,7 +2,7 @@ package main
 
 import "github.com/satori/go.uuid"
 
-type Item struct {
-	Id          uuid.UUID
+type item struct {
+	ID          uuid.UUID
 	Description string `json:"description"`
 }
