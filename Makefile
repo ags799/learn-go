@@ -16,7 +16,7 @@ clean:
 devtools:
 	go get -u github.com/FiloSottile/gvt
 	go get -u github.com/golang/lint/golint
-	go get -u golang.org/x/tools/cmd/goreturns
+	go get -u sourcegraph.com/sqs/goreturns
 
 .PHONY: run
 run: $(NAME)
