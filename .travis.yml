@@ -9,6 +9,7 @@ go:
   - 1.8.3
 
 script:
+  - make devtools
   - make
   - make docker
   - make docker-run &
