@@ -15,6 +15,7 @@ clean:
 devtools:
 	go get -u github.com/FiloSottile/gvt
 	go get -u github.com/golang/lint/golint
+	go get -u golang.org/x/tools/cmd/goreturns
 
 .PHONY: run
 run: $(NAME)
@@ -26,6 +27,8 @@ test: $(NAME)
 
 .PHONY: lint
 lint: $(NAME)
+	go vet
+	goreturns -l -w $(find . -type f -name '*.go' -not -path './vendor/*')
 	golint -set_exit_status
 
 .PHONY: docker
