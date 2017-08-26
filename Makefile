@@ -34,7 +34,7 @@ lint:
 
 .PHONY: format
 format:
-	$(shell goreturns -w $(GO_FILES))
+	goreturns -w $(GO_FILES)
 
 .PHONY: docker
 docker:

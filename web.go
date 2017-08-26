@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
 	"fmt"
+
+	"github.com/gin-gonic/gin"
 )
 
 type Server interface {
@@ -11,7 +12,7 @@ type Server interface {
 
 type GinServer struct {
 	engine *gin.Engine
-	db Db
+	db     Db
 }
 
 func NewGinServer(db Db) GinServer {

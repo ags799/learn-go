@@ -3,9 +3,10 @@ package main
 import (
 	"bytes"
 	"flag"
-	"github.com/stretchr/testify/assert"
 	"net/http"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 var shouldRun = flag.Bool("integration", false, "run integration tests")

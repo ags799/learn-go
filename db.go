@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
+
 	_ "github.com/lib/pq"
 	"github.com/satori/go.uuid"
 )
@@ -17,9 +18,9 @@ type Db interface {
 const tableName = "tasks"
 
 type PostgresDb struct {
-	db *sql.DB
-	list *sql.Stmt
-	add *sql.Stmt
+	db     *sql.DB
+	list   *sql.Stmt
+	add    *sql.Stmt
 	remove *sql.Stmt
 }
 
@@ -57,7 +58,7 @@ func (db PostgresDb) List() ([]Item, error) {
 	var items []Item
 	for rows.Next() {
 		var (
-			id uuid.UUID
+			id          uuid.UUID
 			description string
 		)
 		err := rows.Scan(&id, &description)
