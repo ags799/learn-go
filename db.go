@@ -51,7 +51,7 @@ func NewPostgresDb() (Db, error) {
 func (db PostgresDb) List() ([]Item, error) {
 	rows, err := db.list.Query()
 	if err != nil {
-		return nil, fmt.Errorf(fmt.Sprintf("Error retrieving %s from Postgres database: %s", tableName), err)
+		return nil, fmt.Errorf(fmt.Sprintf("Error retrieving rows from Postgres database: %s", tableName), err)
 	}
 	defer rows.Close()
 	var items []Item

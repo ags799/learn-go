@@ -1,5 +1,6 @@
 NAME := learn-go
 VERSION := $(shell git describe --tags --always --dirty='-dev')
+GO_FILES := $(shell find . -type f -name '*.go' -not -path './vendor/*')
 
 .PHONY: all
 all: test lint
@@ -22,14 +23,18 @@ run: $(NAME)
 	./$(NAME)
 
 .PHONY: test
-test: $(NAME)
+test:
 	go test
 
 .PHONY: lint
-lint: $(NAME)
+lint:
 	go vet
-	goreturns -l -w $(find . -type f -name '*.go' -not -path './vendor/*')
+	test -z '$(shell goreturns -l $(GO_FILES))'
 	golint -set_exit_status
+
+.PHONY: format
+format:
+	$(shell goreturns -w $(GO_FILES))
 
 .PHONY: docker
 docker:

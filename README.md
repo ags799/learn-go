@@ -13,6 +13,10 @@ Build, test, and lint with
 
     make
 
+Auto-format your code with
+
+    make format
+
 Run with
 
     make run
